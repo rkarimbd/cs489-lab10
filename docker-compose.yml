@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  my-sql-server:
+    container_name: mysql-container
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "RkariM@03"
+      MYSQL_DATABASE: "ads_database"
+    ports:
+      - "3307:3306"
+
+  java-crud-app:
+    container_name: java-crud-container
+    image: midejoe/java-api:latest
+    ports:
+      - "8087:8080"
+    environment:
+      DATABASE_URL: "jdbc:mysql://my-sql-server:3306/ads_database"
+      DATABASE_USERNAME: "root"
+      DATABASE_PASSWORD: "RkariM@03"
+    depends_on:
+      - my-sql-server
